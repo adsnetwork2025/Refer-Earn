@@ -1,265 +1,213 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Refer & Earn</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f4f8;
-    margin: 0; padding: 20px;
-    display: flex; justify-content: center; align-items: flex-start;
-    min-height: 100vh;
-  }
-  .container {
-    background: white;
-    max-width: 400px;
-    width: 100%;
-    padding: 25px 20px 40px 20px;
-    box-shadow: 0 8px 15px rgb(0 0 0 / 0.1);
-    border-radius: 10px;
-    text-align: center;
-  }
-  h1 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .blue-tick {
-    color: #0275d8;
-    font-weight: 900;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    font-size: 28px;
-  }
-  .blue-tick.visible {
-    opacity: 1;
-  }
-  .boxes {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
-  }
-  .box {
-    background: #0275d8;
-    color: white;
-    flex: 1;
-    margin: 0 5px;
-    padding: 15px 10px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 16px;
-    user-select: none;
-  }
-  .box:first-child {
-    margin-left: 0;
-  }
-  .box:last-child {
-    margin-right: 0;
-  }
-  button {
-    background: #0275d8;
-    border: none;
-    color: white;
-    padding: 12px 18px;
-    margin: 8px 0;
-    font-size: 16px;
-    font-weight: 700;
-    width: 100%;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  button:hover {
-    background: #025aa5;
-  }
-  button:disabled {
-    background: #7baedc;
-    cursor: not-allowed;
-  }
-  #referral-section {
-    margin-top: 15px;
-    text-align: left;
-  }
-  #referral-section p {
-    margin-bottom: 5px;
-    font-weight: 600;
-  }
-  .referral-link-box {
-    display: flex;
-  }
-  #referral-link {
-    flex: 1;
-    padding: 8px 10px;
-    border: 2px solid #0275d8;
-    border-radius: 6px 0 0 6px;
-    font-size: 14px;
-    user-select: all;
-  }
-  .copy-btn {
-    background: #025aa5;
-    border-radius: 0 6px 6px 0;
-    border: none;
-    color: white;
-    padding: 8px 14px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 14px;
-  }
-  .copy-btn:hover {
-    background: #014a8c;
-  }
-  #withdraw-form {
-    margin-top: 15px;
-    text-align: left;
-  }
-  #withdraw-form select,
-  #withdraw-form input {
-    width: 100%;
-    margin: 6px 0 12px 0;
-    padding: 10px 12px;
-    font-size: 14px;
-    border: 2px solid #0275d8;
-    border-radius: 6px;
-    box-sizing: border-box;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Refer & Earn</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 450px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #111827;
+    }
+    .tick {
+      color: #3b82f6;
+      margin-left: 5px;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      background: #e0e7ff;
+      color: #1e3a8a;
+      flex: 1;
+      margin: 0 5px;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    .ref-link {
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+      word-break: break-all;
+      font-size: 14px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .section {
+      margin-top: 25px;
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h1>
-    Refer & Earn
-    <span id="blueTick" class="blue-tick">✔</span>
-  </h1>
-  <div class="boxes">
-    <div class="box" id="balance-box">Balance: ৳0</div>
-    <div class="box" id="referrals-box">Total Referrals: 0</div>
-    <div class="box" id="withdrawn-box">Total Withdrawn: ৳0</div>
-  </div>
-  <button id="verify-btn">Verify Account</button>
-  <button id="invite-btn">Invite Friend</button>
-  <div id="referral-section" style="display:none;">
-    <p>Your Referral Link:</p>
-    <div class="referral-link-box">
-      <input type="text" id="referral-link" readonly />
-      <button class="copy-btn" id="copy-btn">Copy</button>
+
+  <div class="container">
+    <div class="header">
+      Refer & Earn <span id="tick" class="tick" style="display:none;">✔️</span>
     </div>
+
+    <div class="stats">
+      <div class="stat-box">৳<span id="balance">0</span></div>
+      <div class="stat-box"><span id="referrals">0</span> Ref</div>
+      <div class="stat-box">৳<span id="withdrawn">0</span> WD</div>
+    </div>
+
+    <button onclick="verifyAccount()">✅ Verify Account</button>
+    <button onclick="showReferral()">🎁 Invite Friend</button>
+    <div id="refLinkBox" class="ref-link" style="display:none;">
+      <span id="refLinkText"></span><br/>
+      <button onclick="copyRefLink()">Copy Link</button>
+    </div>
+
+    <button onclick="toggleWithdraw()">💵 Withdraw</button>
+    <div id="withdrawSection" class="section">
+      <select id="method">
+        <option value="bkash">bKash</option>
+        <option value="nagad">Nagad</option>
+      </select>
+      <input type="text" id="number" placeholder="Your number" />
+      <input type="number" id="amount" placeholder="Amount" />
+      <button onclick="confirmWithdraw()">Confirm Withdraw</button>
+    </div>
+
+    <button onclick="goToTelegram()">🤖 Telegram Bot</button>
   </div>
-  <button id="withdraw-btn">Withdraw</button>
-  <div id="withdraw-form" style="display:none;">
-    <select id="payment-method">
-      <option value="bkash">bKash</option>
-      <option value="nagad">Nagad</option>
-    </select>
-    <input type="text" id="wallet-number" placeholder="Enter your number" />
-    <input type="number" id="withdraw-amount" placeholder="Enter amount" />
-    <button id="confirm-withdraw-btn">Confirm Withdraw</button>
-  </div>
-  <button onclick="window.open('https://t.me/refer_earn05_bot?start', '_blank')">Telegram Bot</button>
-</div>
-<script>
-  const STORAGE_KEY = "refer_earn_user_data";
-  function loadUserData() {
-    const data = localStorage.getItem(STORAGE_KEY);
-    if (data) {
-      return JSON.parse(data);
-    } else {
-      return {
-        balance: 0,
-        referrals: 0,
-        withdrawn: 0,
-        verified: false,
-        refLink: "https://referandearn.com/join?code=" + Math.random().toString(36).substring(2, 10)
-      };
+
+  <script>
+    let user = {
+      balance: parseFloat(localStorage.getItem("balance")) || 0,
+      referrals: parseInt(localStorage.getItem("referrals")) || 0,
+      withdrawn: parseFloat(localStorage.getItem("withdrawn")) || 0,
+      verified: localStorage.getItem("verified") === "true",
+      refLink: localStorage.getItem("refLink") || generateRefLink()
+    };
+
+    function generateRefLink() {
+      const code = Math.random().toString(36).substring(2, 10);
+      const link = `https://referandearn.com/join?code=${code}`;
+      localStorage.setItem("refLink", link);
+      return link;
     }
-  }
-  function saveUserData() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
-  }
-  let userData = loadUserData();
-  const balanceBox = document.getElementById("balance-box");
-  const referralsBox = document.getElementById("referrals-box");
-  const withdrawnBox = document.getElementById("withdrawn-box");
-  const referralSection = document.getElementById("referral-section");
-  const referralLinkInput = document.getElementById("referral-link");
-  const copyBtn = document.getElementById("copy-btn");
-  const verifyBtn = document.getElementById("verify-btn");
-  const inviteBtn = document.getElementById("invite-btn");
-  const withdrawBtn = document.getElementById("withdraw-btn");
-  const withdrawForm = document.getElementById("withdraw-form");
-  const paymentMethod = document.getElementById("payment-method");
-  const walletNumber = document.getElementById("wallet-number");
-  const withdrawAmount = document.getElementById("withdraw-amount");
-  const confirmWithdrawBtn = document.getElementById("confirm-withdraw-btn");
-  const blueTick = document.getElementById("blueTick");
-  function updateUI() {
-    balanceBox.textContent = `Balance: ৳${userData.balance}`;
-    referralsBox.textContent = `Total Referrals: ${userData.referrals}`;
-    withdrawnBox.textContent = `Total Withdrawn: ৳${userData.withdrawn}`;
-    if (userData.verified) {
-      blueTick.classList.add("visible");
-    } else {
-      blueTick.classList.remove("visible");
+
+    function updateUI() {
+      document.getElementById("balance").textContent = user.balance.toFixed(2);
+      document.getElementById("referrals").textContent = user.referrals;
+      document.getElementById("withdrawn").textContent = user.withdrawn.toFixed(2);
+      if (user.verified) {
+        document.getElementById("tick").style.display = "inline";
+      }
     }
-  }
-  function showReferral() {
-    referralSection.style.display = "block";
-    referralLinkInput.value = userData.refLink;
-    withdrawForm.style.display = "none";
-  }
-  copyBtn.addEventListener("click", () => {
-    referralLinkInput.select();
-    referralLinkInput.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(referralLinkInput.value).then(() => {
-      alert("Referral link copied!");
-    });
-  });
-  verifyBtn.addEventListener("click", () => {
-    window.open("https://t.me/HK_TEAM1", "_blank");
-    if (!userData.verified) {
-      userData.verified = true;
-      userData.balance += 4;
-      saveUserData();
+
+    function verifyAccount() {
+      if (!user.verified) {
+        user.verified = true;
+        localStorage.setItem("verified", "true");
+        document.getElementById("tick").style.display = "inline";
+        window.open("https://t.me/HK_TEAM1", "_blank");
+      }
+    }
+
+    function showReferral() {
+      document.getElementById("refLinkBox").style.display = "block";
+      document.getElementById("refLinkText").textContent = user.refLink;
+    }
+
+    function copyRefLink() {
+      navigator.clipboard.writeText(user.refLink).then(() => {
+        alert("Referral link copied!");
+      });
+    }
+
+    function toggleWithdraw() {
+      document.getElementById("withdrawSection").classList.toggle("active");
+    }
+
+    function confirmWithdraw() {
+      const method = document.getElementById("method").value;
+      const number = document.getElementById("number").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (amount < 200) {
+        alert("Minimum withdraw amount is 200৳");
+        return;
+      }
+      if (amount > user.balance) {
+        alert("Insufficient balance!");
+        return;
+      }
+
+      user.balance -= amount;
+      user.withdrawn += amount;
+      localStorage.setItem("balance", user.balance);
+      localStorage.setItem("withdrawn", user.withdrawn);
+
+      const msg = `New Withdraw Request\nMethod: ${method}\nNumber: ${number}\nAmount: ${amount}৳`;
+      const token = "7866117951:AAFYb1hGIxPp9Ihuf4MtaeG3sMewkdV1xA0";
+      const chatId = "6593402184";
+      const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`;
+      fetch(url);
+
+      alert("Withdraw request sent!");
       updateUI();
+      toggleWithdraw();
     }
-  });
-  inviteBtn.addEventListener("click", () => {
-    showReferral();
-  });
-  withdrawBtn.addEventListener("click", () => {
-    withdrawForm.style.display = "block";
-    referralSection.style.display = "none";
-  });
-  confirmWithdrawBtn.addEventListener("click", () => {
-    const method = paymentMethod.value;
-    const number = walletNumber.value.trim();
-    const amount = parseInt(withdrawAmount.value, 10);
-    if (!number || isNaN(amount) || amount <= 0) {
-      alert("অনুগ্রহ করে সঠিক নাম্বার এবং এমাউন্ট দিন।");
-      return;
+
+    function goToTelegram() {
+      window.open("https://t.me/refer_earn05_bot?start", "_blank");
     }
-    if (amount > userData.balance) {
-      alert("আপনার ব্যালেন্স পর্যাপ্ত নয়।");
-      return;
-    }
-    if (amount < 200) {
-      alert("ন্যূনতম উইথড্রওয়াল এমাউন্ট হল ৳২০০।");
-      return;
-    }
-    alert(`উইথড্রয় রিকোয়েস্ট পাঠানো হয়েছে!\nমেথড: ${method}\nনাম্বার: ${number}\nএমাউন্ট: ৳${amount}`);
-    userData.balance -= amount;
-    userData.withdrawn += amount;
-    saveUserData();
+
     updateUI();
-    walletNumber.value = "";
-    withdrawAmount.value = "";
-    withdrawForm.style.display = "none";
-  });
-  updateUI();
-</script>
+  </script>
 </body>
 </html>
