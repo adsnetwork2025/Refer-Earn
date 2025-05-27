@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Refer & Earn</title>
   <style>
     * {
@@ -126,6 +126,23 @@
   </div>
 
   <script>
+    // প্রথমে ইউজারের রেফার কোড লোড করি, না থাকলে জেনারেট করি
+    function getOrCreateRefCode() {
+      let code = localStorage.getItem("refCode");
+      if (!code) {
+        code = Math.random().toString(36).substring(2, 10);
+        localStorage.setItem("refCode", code);
+      }
+      return code;
+    }
+
+    // রেফার লিংক জেনারেট
+    function generateRefLink() {
+      const baseLink = "https://adsnetwork2025.github.io/Refer-Earn/";
+      const code = getOrCreateRefCode();
+      return `${baseLink}?code=${code}`;
+    }
+
     let user = {
       balance: parseFloat(localStorage.getItem("balance")) || 0,
       referrals: parseInt(localStorage.getItem("referrals")) || 0,
@@ -134,11 +151,10 @@
       refLink: localStorage.getItem("refLink") || generateRefLink()
     };
 
-    function generateRefLink() {
-      const code = Math.random().toString(36).substring(2, 10);
-      const link = `https://referandearn.com/join?code=${code}`;
-      localStorage.setItem("refLink", link);
-      return link;
+    // যদি লিঙ্ক লোকালস্টোরেজে না থাকে তাহলে আপডেট করি
+    if (!localStorage.getItem("refLink")) {
+      user.refLink = generateRefLink();
+      localStorage.setItem("refLink", user.refLink);
     }
 
     function updateUI() {
