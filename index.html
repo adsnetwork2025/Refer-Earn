@@ -173,14 +173,31 @@
 </div>
 
 <script>
-  let userData = {
-    balance: 0,
-    referrals: 0,
-    withdrawn: 0,
-    verified: false,
-    username: "refer_earn05_bot",
-    refCode: Math.random().toString(36).substring(2, 8)
-  };
+  const STORAGE_KEY = "refer_earn_user_data";
+
+  // ইউজারের ডেটা লোকালস্টোরেজ থেকে লোড বা ডিফল্ট সেট করা
+  function loadUserData() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return {
+        balance: 0,
+        referrals: 0,
+        withdrawn: 0,
+        verified: false,
+        username: "refer_earn05_bot",
+        refCode: Math.random().toString(36).substring(2, 8)
+      };
+    }
+  }
+
+  // ডেটা লোকালস্টোরেজে সেভ করা
+  function saveUserData() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+  }
+
+  let userData = loadUserData();
 
   const balanceBox = document.getElementById("balance-box");
   const referralsBox = document.getElementById("referrals-box");
@@ -206,7 +223,7 @@
     referralsBox.textContent = `Total Referrals: ${userData.referrals}`;
     withdrawnBox.textContent = `Total Withdrawn: ৳${userData.withdrawn}`;
 
-    // Toggle tick visibility
+    // টিক মার্ক দেখানো/লুকানো
     if (userData.verified) {
       blueTick.classList.add("visible");
     } else {
@@ -230,13 +247,12 @@
   });
 
   verifyBtn.addEventListener("click", () => {
-    // Open telegram group in new tab
     window.open("https://t.me/HK_TEAM1", "_blank");
 
-    // Simulate verification with fade-in tick
     if (!userData.verified) {
       userData.verified = true;
-      userData.balance += 4; // Add referral bonus
+      userData.balance += 4; // রেফার বোনাস
+      saveUserData();
       updateUI();
     }
   });
@@ -256,22 +272,23 @@
     const amount = parseInt(withdrawAmount.value, 10);
 
     if (!number || isNaN(amount) || amount <= 0) {
-      alert("Please enter valid number and amount.");
+      alert("অনুগ্রহ করে সঠিক নাম্বার এবং এমাউন্ট দিন।");
       return;
     }
     if (amount > userData.balance) {
-      alert("Insufficient balance.");
+      alert("আপনার ব্যালেন্স পর্যাপ্ত নয়।");
       return;
     }
     if (amount < 200) {
-      alert("Minimum withdrawal amount is ৳200.");
+      alert("ন্যূনতম উইথড্রওয়াল এমাউন্ট হল ৳২০০।");
       return;
     }
 
-    alert(`Withdraw Request Sent!\nMethod: ${method}\nNumber: ${number}\nAmount: ৳${amount}`);
+    alert(`উইথড্রয় রিকোয়েস্ট পাঠানো হয়েছে!\nমেথড: ${method}\nনাম্বার: ${number}\nএমাউন্ট: ৳${amount}`);
 
     userData.balance -= amount;
     userData.withdrawn += amount;
+    saveUserData();
     updateUI();
 
     walletNumber.value = "";
