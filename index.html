@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Refer & Earn</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .verified {
+      color: #007bff;
+      font-size: 18px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .info-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .box {
+      flex: 1 1 48%;
+      background: #e6f0ff;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn:active {
+      background: #0056b3;
+    }
+    .refer-box {
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      display: none;
+    }
+    .refer-link {
+      word-break: break-all;
+      margin-bottom: 8px;
+    }
+    .copy-btn {
+      padding: 6px 12px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .withdraw-form {
+      display: none;
+      margin-top: 10px;
+    }
+    .withdraw-form input,
+    .withdraw-form select {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="title">
+    Refer & Earn <span class="verified" id="verifiedTick" style="display:none;">✔️</span>
+  </div>
+
+  <div class="info-boxes">
+    <div class="box">৳ <span id="balance">0</span></div>
+    <div class="box">রেফার: <span id="referrals">0</span></div>
+    <div class="box">উইথড্র: ৳<span id="withdrawn">0</span></div>
+  </div>
+
+  <button class="btn" onclick="verifyAccount()">Verify Account</button>
+  <button class="btn" onclick="showReferral()">Invite Friend</button>
+
+  <div class="refer-box" id="referBox">
+    <div class="refer-link" id="referLink">https://t.me/refer_earn05_bot?start=USER123</div>
+    <button class="copy-btn" onclick="copyReferral()">Copy</button>
+  </div>
+
+  <button class="btn" onclick="showWithdrawForm()">Withdraw</button>
+
+  <div class="withdraw-form" id="withdrawForm">
+    <select id="method">
+      <option value="">সিলেক্ট পেমেন্ট মেথড</option>
+      <option value="bKash">bKash</option>
+      <option value="Nagad">Nagad</option>
+    </select>
+    <input type="text" id="number" placeholder="আপনার নাম্বার লিখুন">
+    <input type="number" id="amount" placeholder="এমাউন্ট">
+    <button class="btn" onclick="confirmWithdraw()">Confirm Withdraw</button>
+  </div>
+</div>
+
+<script>
+  // ইউজারের ID সেট করুন এখানে (ডায়নামিক করার সময় বট থেকে পাঠান)
+  let userId = "USER123"; // Example: replace this from your bot data
+  let balance = 0;
+  let referrals = 0;
+  let withdrawn = 0;
+
+  document.getElementById("referLink").innerText = `https://t.me/refer_earn05_bot?start=${userId}`;
+  document.getElementById("balance").innerText = balance;
+  document.getElementById("referrals").innerText = referrals;
+  document.getElementById("withdrawn").innerText = withdrawn;
+
+  function verifyAccount() {
+    window.open("https://t.me/HK_TEAM1", "_blank");
+    document.getElementById('verifiedTick').style.display = 'inline';
+  }
+
+  function showReferral() {
+    document.getElementById('referBox').style.display = 'block';
+  }
+
+  function copyReferral() {
+    const text = document.getElementById("referLink").innerText;
+    navigator.clipboard.writeText(text);
+    alert("Referral link copied!");
+  }
+
+  function showWithdrawForm() {
+    document.getElementById('withdrawForm').style.display = 'block';
+  }
+
+  function confirmWithdraw() {
+    const method = document.getElementById("method").value;
+    const number = document.getElementById("number").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+
+    if (!method || !number || !amount) {
+      alert("সব তথ্য পূরণ করুন");
+      return;
+    }
+
+    if (amount < 200) {
+      alert("মিনিমাম উইথড্র এমাউন্ট ২০০ টাকা হতে হবে!");
+      return;
+    }
+
+    fetch("https://api.telegram.org/bot7866117951:AAFYb1hGIxPp9Ihuf4MtaeG3sMewkdV1xA0/sendMessage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: "6593402184",
+        text: `New Withdraw Request:\nUserID: ${userId}\nMethod: ${method}\nNumber: ${number}\nAmount: ৳${amount}`
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert("Withdraw request submitted!");
+    })
+    .catch(error => {
+      alert("Something went wrong!");
+      console.error(error);
+    });
+  }
+</script>
+
+</body>
+</html>
